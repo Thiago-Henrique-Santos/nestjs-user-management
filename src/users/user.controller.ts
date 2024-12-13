@@ -2,11 +2,13 @@ import { Controller, Get, Post, Body, Param, BadRequestException } from '@nestjs
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @ApiTags('users')
   @Post()
   create(@Body() createUserDto: CreateUserDto): Promise<User> {
     if (!createUserDto.name || !createUserDto.email || !createUserDto.password) {
