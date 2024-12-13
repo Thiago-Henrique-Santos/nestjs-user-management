@@ -21,4 +21,41 @@ export class UserService {
   async findOne(id: number): Promise<User> {
     return this.userRepository.findOneBy({ id });
   }
+
+  async updatePartial(id: number, updateUserDto: CreateUserDto): Promise<User> {
+    const user = await this.userRepository.findOneBy({ id });
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // Atualizar apenas os campos que foram passados
+    if (updateUserDto.name) user.name = updateUserDto.name;
+    if (updateUserDto.email) user.email = updateUserDto.email;
+    if (updateUserDto.password) user.password = updateUserDto.password;
+
+    return this.userRepository.save(user);
+  }
+
+  async update(id: number, updateUserDto: CreateUserDto): Promise<User> {
+    const user = await this.userRepository.findOneBy({ id });
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // Atualizar todos os campos
+    user.name = updateUserDto.name;
+    user.email = updateUserDto.email;
+    user.password = updateUserDto.password;
+
+    return this.userRepository.save(user);
+  }
+
+  async remove(id: number): Promise<void> {
+    const user = await this.userRepository.findOneBy({ id });
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    await this.userRepository.remove(user);
+  }
 }
