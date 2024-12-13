@@ -9,7 +9,6 @@ async function bootstrap() {
     .setTitle('NestJS User Management API')
     .setDescription('API para gerenciar usuários e dados geoespaciais, utilizando NestJS, PostgresSQl, PostGIS, Docker e Jest')
     .setVersion('1.0')
-    .addTag('users')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
