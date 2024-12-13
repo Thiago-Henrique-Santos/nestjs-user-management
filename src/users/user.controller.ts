@@ -3,23 +3,32 @@ import { UserService } from './user.service';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 
+import * as bcrypt from 'bcryptjs';
+
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
+  async create(@Body() createUserDto: CreateUserDto): Promise<User> {    
     if (!createUserDto.name || !createUserDto.email || !createUserDto.password) {
       throw new BadRequestException('Name, email, and password are required');
     }
 
-    // Validação simples de formato de e-mail
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailRegex.test(createUserDto.email)) {
       throw new BadRequestException('Invalid email format');
     }
 
-    return this.userService.create(createUserDto);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(createUserDto.password, salt);
+
+    const newUser = await this.userService.create({
+      ...createUserDto,
+      password: hashedPassword,
+    });
+
+    return this.userService.create(newUser);
   }
 
   @Get()
