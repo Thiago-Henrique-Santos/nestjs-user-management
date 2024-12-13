@@ -29,13 +29,11 @@ export class UserService {
   }
 
   async updatePartial(id: number, updateUserDto: PatchUserDto): Promise<User> {
-    console.log('Atualizando usuário ID:', id);
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
       throw new Error('User not found');
     }
 
-    // Atualizar apenas os campos que foram passados
     if (updateUserDto.name) user.name = updateUserDto.name;
     if (updateUserDto.email) user.email = updateUserDto.email;
     if (updateUserDto.password) user.password = updateUserDto.password;

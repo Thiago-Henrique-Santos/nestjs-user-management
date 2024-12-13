@@ -67,18 +67,17 @@ export class UserController {
 
   @Put(':id')
   async update(@Param('id') id: number, @Body() updateUserDto: CreateUserDto): Promise<User> {
-    // Encontrar o usuário
     const user = await this.userService.findOne(id);
     if (!user) {
       throw new BadRequestException('User not found');
     }
 
-    // Atualizar dados simples sem validações extras por enquanto
     user.name = updateUserDto.name;
     user.email = updateUserDto.email;
-    user.password = updateUserDto.password;
 
-    // Atualiza o usuário no banco de dados
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(updateUserDto.password, salt);
+
     await this.userService.update(id, user);
 
     return user;
