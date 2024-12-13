@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydb
+      POSTGRES_DB: nestjs_user_management
     ports:
       - "5433:5432"
     volumes:
@@ -17,11 +17,11 @@ services:
     build: .
     container_name: nestjs-app
     environment:
-      - DATABASE_URL=postgres://user:password@postgres:5432/mydb
+      - DATABASE_URL=postgres://user:password@postgres:5432/nestjs_user_management
     ports:
       - "3000:3000"
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/app:delegated
     depends_on:
       - postgres
     networks:
