@@ -4,6 +4,7 @@ import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 
 import * as bcrypt from 'bcryptjs';
+import { PatchUserDto } from './dto/patch-user.dto';
 
 @Controller('users')
 export class UserController {
@@ -42,29 +43,45 @@ export class UserController {
   }
 
   @Patch(':id')
-  updatePartial(@Param('id') id: number, @Body() updateUserDto: CreateUserDto): Promise<User> {
-    return this.userService.updatePartial(id, updateUserDto);
-  }
+  async updatePartial(@Param('id') id: number, @Body() updateUserDto: PatchUserDto): Promise<User> {
+    const user = await this.userService.findOne(id);
 
-  @Put(':id')
-  async update(@Param('id') id: number, @Body() updateUserDto: CreateUserDto): Promise<User> {
-    if (!updateUserDto.name || !updateUserDto.email || !updateUserDto.password) {
-      throw new BadRequestException('Name, email, and password are required');
+    if (!user) {
+      throw new BadRequestException('User not found');
     }
 
+    // Validação manual de dados
     if (updateUserDto.email && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(updateUserDto.email)) {
       throw new BadRequestException('Invalid email format');
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(updateUserDto.password, salt);
+    // Se a senha for fornecida, criptografa a senha
+    if (updateUserDto.password) {
+      const salt = await bcrypt.genSalt(10);
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, salt);
+    }
 
-    const updatedData = await this.userService.create({
-      ...updateUserDto,
-      password: hashedPassword,
-    });
+    const updatedUser = await this.userService.updatePartial(id, updateUserDto);
+    return updatedUser;
+  }
 
-    return this.userService.update(id, updatedData);
+  @Put(':id')
+  async update(@Param('id') id: number, @Body() updateUserDto: CreateUserDto): Promise<User> {
+    // Encontrar o usuário
+    const user = await this.userService.findOne(id);
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    // Atualizar dados simples sem validações extras por enquanto
+    user.name = updateUserDto.name;
+    user.email = updateUserDto.email;
+    user.password = updateUserDto.password;
+
+    // Atualiza o usuário no banco de dados
+    await this.userService.update(id, user);
+
+    return user;
   }
 
   @Delete(':id')

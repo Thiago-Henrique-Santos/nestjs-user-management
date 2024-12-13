@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
+import { PatchUserDto } from './dto/patch-user.dto';
 
 @Injectable()
 export class UserService {
@@ -22,7 +23,13 @@ export class UserService {
     return this.userRepository.findOneBy({ id });
   }
 
-  async updatePartial(id: number, updateUserDto: CreateUserDto): Promise<User> {
+  async findOneByEmail(email: string): Promise<User | undefined> {
+    console.log('Consultando por email:', email);
+    return this.userRepository.findOne({ where: { email } });
+  }
+
+  async updatePartial(id: number, updateUserDto: PatchUserDto): Promise<User> {
+    console.log('Atualizando usuário ID:', id);
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
       throw new Error('User not found');
@@ -36,18 +43,8 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  async update(id: number, updateUserDto: CreateUserDto): Promise<User> {
-    const user = await this.userRepository.findOneBy({ id });
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    // Atualizar todos os campos
-    user.name = updateUserDto.name;
-    user.email = updateUserDto.email;
-    user.password = updateUserDto.password;
-
-    return this.userRepository.save(user);
+  async update(id: number, user: User): Promise<void> {
+    await this.userRepository.update(id, user);
   }
 
   async remove(id: number): Promise<void> {
