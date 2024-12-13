@@ -47,8 +47,24 @@ export class UserController {
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() updateUserDto: CreateUserDto): Promise<User> {
-    return this.userService.update(id, updateUserDto);
+  async update(@Param('id') id: number, @Body() updateUserDto: CreateUserDto): Promise<User> {
+    if (!updateUserDto.name || !updateUserDto.email || !updateUserDto.password) {
+      throw new BadRequestException('Name, email, and password are required');
+    }
+
+    if (updateUserDto.email && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(updateUserDto.email)) {
+      throw new BadRequestException('Invalid email format');
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(updateUserDto.password, salt);
+
+    const updatedData = await this.userService.create({
+      ...updateUserDto,
+      password: hashedPassword,
+    });
+
+    return this.userService.update(id, updatedData);
   }
 
   @Delete(':id')
