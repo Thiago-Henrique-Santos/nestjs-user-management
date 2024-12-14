@@ -44,6 +44,7 @@ src/
     └── dto/                # Diretório para os DTOs de usuários
         └── create-user.dto.ts  # DTO para criação de usuário
 
+
 <details>
   <summary> Documentação do NestJS </summary>
 
@@ -146,6 +147,5 @@ src/
   ## License
 
   Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
-
 
 </details>
