@@ -20,7 +20,7 @@ export class UserService {
   }
 
   async findOne(id: number): Promise<User> {
-    return this.userRepository.findOneBy({ id });
+    return this.userRepository.findOne({ where: { id } });
   }
 
   async findOneByEmail(email: string): Promise<User | undefined> {
@@ -29,7 +29,7 @@ export class UserService {
   }
 
   async updatePartial(id: number, updateUserDto: PatchUserDto): Promise<User> {
-    const user = await this.userRepository.findOneBy({ id });
+    const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new Error('User not found');
     }
@@ -41,12 +41,17 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  async update(id: number, user: User): Promise<void> {
-    await this.userRepository.update(id, user);
+  async update(id: number, updateUserDto: CreateUserDto): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new Error('User not found');
+    }
+    await this.userRepository.update({ id }, updateUserDto);
+    return this.userRepository.findOne({ where: { id } });
   }
 
   async remove(id: number): Promise<void> {
-    const user = await this.userRepository.findOneBy({ id });
+    const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new Error('User not found');
     }
