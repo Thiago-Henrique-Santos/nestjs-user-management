@@ -23,9 +23,6 @@ Este é um projeto de gerenciamento de usuários desenvolvido com NestJS, TypeOR
 - **Persistência com banco de dados PostgreSQL**:
   - Tabelas para armazenar informações dos usuários e pontos de interesse com suporte a dados geoespaciais.
 
-- **Validação de dados**:
-  - Validação de entradas usando `class-validator` (opcional, dependendo da configuração de validação que você preferir).
-
 - **Testes de integração**:
   - Testes automatizados para as rotas de usuários.
 
