@@ -1,6 +1,7 @@
 import { Controller, Post, Body, Get, Delete, Param } from '@nestjs/common';
 import { CreatePointOfInterestDto } from './dto/create-point-of-interest.dto';
 import { PointOfInterestService } from './point-of-interest.service';
+import { PointOfInterest } from './point-of-interest.entity';
 
 @Controller('points_of_interest')
 export class PointOfInterestController {
@@ -9,6 +10,11 @@ export class PointOfInterestController {
   @Get()
   async findAll() {
     return this.pointOfInterestService.getAllLocations();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: number): Promise<PointOfInterest> {
+    return this.pointOfInterestService.getPointOfInterestById(id);
   }
 
   @Post()

@@ -15,6 +15,14 @@ export class PointOfInterestService {
     return this.pointOfInterestRepository.find();
   }
 
+  async getPointOfInterestById(id: number): Promise<PointOfInterest> {
+    const point = await this.pointOfInterestRepository.findOneBy({ id });
+    if (!point) {
+      throw new NotFoundException(`Point of Interest with ID ${id} not found.`);
+    }
+    return point;
+  }
+
   async create(createPointOfInterestDto: CreatePointOfInterestDto): Promise<PointOfInterest> {
     const { name, category, latitude, longitude } = createPointOfInterestDto;
   
