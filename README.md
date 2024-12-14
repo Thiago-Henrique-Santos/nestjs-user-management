@@ -57,6 +57,65 @@ Para facilitar o entendimento e a interação com a API desenvolvida, utilizei o
 
 2. Na interface do Swagger, você poderá visualizar todas as rotas da API, incluindo as informações sobre os parâmetros e os tipos de resposta. Além disso, será possível testar cada endpoint diretamente pela interface, sem precisar usar ferramentas externas como o Postman.
 
+## Como Iniciar a Aplicação
+
+Para iniciar a aplicação e o banco de dados, siga os passos abaixo:
+
+1. **Clonar o repositório**:
+   Primeiro, clone o repositório para o seu computador:
+
+   ```bash
+   git clone https://github.com/seu-usuario/nestjs-user-management.git
+   cd nestjs-user-management
+   ```
+
+2. **Instalar as dependências**:
+   Após clonar o repositório, instale as dependências do projeto com o seguinte comando:
+
+   ```bash
+   npm install
+   ```
+
+3. **Configuração do Docker**:
+   O projeto inclui um arquivo `docker-compose.yml` para configurar tanto o banco de dados PostgreSQL com a extensão PostGIS quanto o contêiner da API. Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina.
+
+   Para rodar a aplicação e o banco de dados, execute o seguinte comando:
+
+   ```bash
+   docker compose up --build -d
+   ```
+
+   O parâmetro `--build` garante que o Docker reconstrua a imagem da aplicação, caso tenha ocorrido alguma modificação nas dependências ou no código. O parâmetro `-d` faz com que os containers sejam executados em segundo plano.
+
+   Isso irá:
+
+   - Iniciar o banco de dados PostgreSQL com a extensão PostGIS configurada.
+   - Iniciar o servidor da API no contêiner Docker, expondo a aplicação na porta `3000`.
+
+   <span style="color: red"><strong>ATENÇÃO:</strong> Após executar o comando `docker compose up --build -d`, pode demorar de 1 a 3 minutos para que tudo fique pronto e você possa utilizar a aplicação. Incluise o Swagger só fica disponível após tudo estar pronto.</span>
+
+   <span style="color: green">Mas depois deste tempo, quando tudo estiver pronto, <strong>o tempo de execução das rotas é rápido.</strong>.</span>
+
+4. **Acessar a documentação da API (Swagger)**:
+   Após a aplicação e o banco de dados estarem em execução, a documentação da API estará disponível através do Swagger no seguinte endereço:
+
+   ```
+   http://localhost:3000/api
+   ```
+
+   No Swagger, você poderá visualizar todas as rotas da API e testar suas funcionalidades diretamente do navegador.
+
+5. **Rodar os testes** (opcional):
+   Para garantir que tudo está funcionando corretamente, você pode rodar os testes unitários com o seguinte comando:
+
+   ```bash
+   npm run test:unit
+   ```
+
+---
+
+Agora, você pode usar a API e testar as rotas disponíveis, como a criação, leitura, atualização e remoção de usuários.
+
 <details>
   <summary> Documentação do NestJS </summary>
 
