@@ -91,6 +91,12 @@ Para iniciar a aplicação e o banco de dados, siga os passos abaixo:
 
    **ATENÇÃO:** Após executar o comando `docker compose up --build -d`, pode demorar de **1 a 3 minutos** para que tudo fique pronto e você possa utilizar a aplicação. **Inclusive, o Swagger só ficará disponível após tudo estar pronto.**
 
+   **Importante:** Caso ocorra algum erro relacionado a permissões de rede ou de acesso ao Docker, verifique se o Docker está rodando corretamente e se você tem permissões para executar comandos Docker.
+
+   Isso irá:
+   - Iniciar o banco de dados PostgreSQL com a extensão PostGIS configurada.
+   - Iniciar o servidor da API no contêiner Docker, expondo a aplicação na porta 3000.
+
 > **Mas depois deste tempo, quando tudo estiver pronto, o tempo de execução das rotas é rápido.**
 
 4. **Acessar a documentação da API (Swagger)**:
@@ -101,6 +107,8 @@ Para iniciar a aplicação e o banco de dados, siga os passos abaixo:
    ```
 
    No Swagger, você poderá visualizar todas as rotas da API e testar suas funcionalidades diretamente do navegador.
+
+   **Atenção**: A documentação do Swagger estará disponível **somente depois que a aplicação e o banco de dados estiverem completamente iniciados**, o que pode levar de 1 a 3 minutos.
 
 5. **Rodar os testes** (opcional):
    Para garantir que tudo está funcionando corretamente, você pode rodar os testes unitários com o seguinte comando:
