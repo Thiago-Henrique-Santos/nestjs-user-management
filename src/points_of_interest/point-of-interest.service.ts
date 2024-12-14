@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PointOfInterest } from './point-of-interest.entity';
@@ -34,5 +34,12 @@ export class PointOfInterestService {
     );
   
     return newPoint;
+  }
+
+  async deletePointOfInterest(id: number): Promise<void> {
+    const result = await this.pointOfInterestRepository.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Point of Interest with ID ${id} not found.`);
+    }
   }
 }
