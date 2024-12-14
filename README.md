@@ -26,23 +26,6 @@ Este é um projeto de gerenciamento de usuários desenvolvido com NestJS, TypeOR
 - **Testes de integração**:
   - Testes automatizados para as rotas de usuários.
 
-## Estrutura do Projeto
-
-O projeto está estruturado da seguinte forma:
-
-```bash
-src/
-├── app.module.ts           # Módulo principal da aplicação
-├── main.ts                 # Ponto de entrada da aplicação
-└── users/                  # Diretório para funcionalidades relacionadas a usuários
-    ├── user.controller.ts  # Controlador de usuários (rotas)
-    ├── user.entity.ts      # Entidade de usuário para o TypeORM
-    ├── user.module.ts      # Módulo de usuários
-    ├── user.service.ts     # Lógica de negócios dos usuários
-    └── dto/                # Diretório para os DTOs de usuários
-        └── create-user.dto.ts  # DTO para criação de usuário
-```
-
 ## Documentação da API com Swagger
 
 Para facilitar o entendimento e a interação com a API desenvolvida, utilizei o Swagger para gerar a documentação automática e interativa das rotas.
