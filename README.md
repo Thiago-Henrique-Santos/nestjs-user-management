@@ -12,6 +12,11 @@ Este é um projeto de gerenciamento de usuários desenvolvido com NestJS, TypeOR
 - **Jest**: Framework para testes unitários.
 - **Swagger**: Ferramenta para gerar documentação interativa da API, facilitando a visualização e o teste das rotas diretamente no navegador.
 
+## Motivação para utilizar TypeORM e Swagger
+
+- **TypeORM** foi escolhido para acelerar o desenvolvimento e simplificar a integração com o banco de dados PostgreSQL, especialmente no suporte a dados geoespaciais fornecido pelo PostGIS. Ele também permitiu a criação de um modelo de dados mais estruturado e alinhado ao uso do TypeScript.
+- **Swagger** foi implementado para gerar automaticamente uma documentação interativa da API, economizando tempo de desenvolvimento e facilitando a visualização e o teste das rotas. Essa ferramenta é amplamente utilizada e bem aceita no mercado para aplicações RESTful.
+
 ## Funcionalidades
 
 - **CRUD de usuários**:
