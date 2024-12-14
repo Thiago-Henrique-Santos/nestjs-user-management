@@ -1,6 +1,6 @@
 # nestjs-user-management
 
-Este é um projeto de gerenciamento de usuários desenvolvido com NestJS, TypeORM, PostgreSQL e PostGIS, destinado a ilustrar um exemplo de aplicação de API RESTful com rotas CRUD para gerenciamento de usuários. O projeto também usa Docker para facilitar a execução e a configuração do ambiente de desenvolvimento.
+Este é um projeto de gerenciamento de usuários desenvolvido com NestJS, TypeORM, PostgreSQL e PostGIS, destinado a ilustrar um exemplo de aplicação de API RESTful com rotas CRUD para gerenciamento de usuários e algumas para criação e listagem de pontos geográficos. O projeto também usa Docker para facilitar a execução e a configuração do ambiente de desenvolvimento.
 
 ## Tecnologias Utilizadas
 
@@ -10,6 +10,7 @@ Este é um projeto de gerenciamento de usuários desenvolvido com NestJS, TypeOR
 - **PostGIS**: Extensão do PostgreSQL para suporte a dados geoespaciais.
 - **Docker**: Ferramenta para criar, implantar e executar aplicações em contêineres.
 - **Jest**: Framework para testes unitários.
+- **Swagger**: Ferramenta para gerar documentação interativa da API, facilitando a visualização e o teste das rotas diretamente no navegador.
 
 ## Funcionalidades
 
@@ -43,7 +44,18 @@ src/
     ├── user.service.ts     # Lógica de negócios dos usuários
     └── dto/                # Diretório para os DTOs de usuários
         └── create-user.dto.ts  # DTO para criação de usuário
+```
 
+## Documentação da API com Swagger
+
+Para facilitar o entendimento e a interação com a API desenvolvida, utilizei o Swagger para gerar a documentação automática e interativa das rotas.
+
+### Como acessar a documentação:
+
+1. Após iniciar a aplicação, a documentação da API estará disponível em:  
+   [http://localhost:3000/api](http://localhost:3000/api)
+
+2. Na interface do Swagger, você poderá visualizar todas as rotas da API, incluindo as informações sobre os parâmetros e os tipos de resposta. Além disso, será possível testar cada endpoint diretamente pela interface, sem precisar usar ferramentas externas como o Postman.
 
 <details>
   <summary> Documentação do NestJS </summary>
