@@ -6,6 +6,11 @@ import { PointOfInterestService } from './point-of-interest.service';
 export class PointOfInterestController {
   constructor(private readonly pointOfInterestService: PointOfInterestService) {}
 
+  @Get()
+  async findAll() {
+    return this.pointOfInterestService.getAllLocations();
+  }
+  
   @Post()
   create(@Body() createPointOfInterestDto: CreatePointOfInterestDto) {
     return this.pointOfInterestService.create(createPointOfInterestDto);

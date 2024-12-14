@@ -11,6 +11,10 @@ export class PointOfInterestService {
     private pointOfInterestRepository: Repository<PointOfInterest>,
   ) {}
 
+  async getAllLocations(): Promise<PointOfInterest[]> {
+    return this.pointOfInterestRepository.find();
+  }
+
   async create(createPointOfInterestDto: CreatePointOfInterestDto): Promise<PointOfInterest> {
     const { name, category, latitude, longitude } = createPointOfInterestDto;
   
