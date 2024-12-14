@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { Point } from 'geojson';
 
 @Entity('points_of_interest')
 export class PointOfInterest {

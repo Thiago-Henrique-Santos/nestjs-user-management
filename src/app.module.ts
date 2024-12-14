@@ -12,8 +12,7 @@ import { PointOfInterestModule } from './points_of_interest/point-of-interest.mo
       username: 'user',
       password: 'password',
       database: 'nestjs_user_management',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true
+      entities: [__dirname + '/**/*.entity{.ts,.js}']
     }),
     UserModule,
     PointOfInterestModule
